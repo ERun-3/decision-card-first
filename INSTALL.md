@@ -1,15 +1,15 @@
-# 安装说明（build-or-reuse）
+# 安装说明（decision-card-first）
 
 本包是**全局默认工作流 Skill**，不是按需调用的工具。装错位置或漏掉第 3 步，等于没装。
 
 ## 给安装本包的 Agent：按序执行
 
 1. **确认本平台约定** — 先确定本 Agent 的「用户级 skills 目录」和「用户级长期记忆／全局规则文件」各在哪。WorkBuddy 本机分别是 `~/.workbuddy/skills/` 与 `~/.workbuddy/*-personal/MEMORY.md`；其他 Agent 用各自的对应位置。无法确定时**询问用户**，不要硬套 WorkBuddy 路径，也不要因为路径不匹配就判定本包不适用。
-2. **安装位置** — 装到上一步确认的**用户级**目录（WorkBuddy 为 `~/.workbuddy/skills/build-or-reuse/`），不要放项目级目录（如 `{workspace}/.workbuddy/skills/`）：用户级对所有会话生效，项目级只对单个项目生效。
+2. **安装位置** — 装到上一步确认的**用户级**目录（WorkBuddy 为 `~/.workbuddy/skills/decision-card-first/`），不要放项目级目录（如 `{workspace}/.workbuddy/skills/`）：用户级对所有会话生效，项目级只对单个项目生效。
 3. **安全审查** — 逐文件读完 `SKILL.md`、`scripts/probe_reuse.py`、`references/license-and-sources.md`。确认脚本只向 `api.github.com` 发只读 GET，不写用户文件、不执行外部命令、不上传数据。
 4. **注册默认规则（关键）** — 把下面这行写进本平台的用户级长期记忆／全局规则文件，并告知用户写入的位置：
 
-   > 开始任何从零构建类任务前（预计新建 ≥100 行代码、或需要架构选型、或引入新依赖），先加载 build-or-reuse 做一次现成方案调研，输出造轮子决策卡后**停下等待用户确认**，得到明确同意再动手实现；用户明确说「直接写 / 不要调研」时跳过。
+   > 开始任何从零构建类任务前（预计新建 ≥100 行代码、或需要架构选型、或引入新依赖），先加载 decision-card-first 做一次现成方案调研，输出造轮子决策卡后**停下等待用户确认**，得到明确同意再动手实现；用户明确说「直接写 / 不要调研」时跳过。
 
    无法写入时，必须如实说明「已安装，但默认触发未注册」，不要默认它已生效。
 

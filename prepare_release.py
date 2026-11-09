@@ -18,7 +18,7 @@ from pathlib import Path
 
 RELEASE = Path(__file__).resolve().parent
 WORKSPACE = RELEASE.parent
-SKILL_SRC = Path(r"C:\Users\41Run\.workbuddy\skills\build-or-reuse")
+SKILL_SRC = Path(r"C:\Users\41Run\.workbuddy\skills\decision-card-first")
 DOCS_SRC = WORKSPACE / "dist"
 
 SKILL_FILES = [
@@ -99,10 +99,10 @@ def validate():
 
 def build_zip():
     print("=== 4. 生成发布 zip ===")
-    out = RELEASE / "build-or-reuse.zip"
+    out = RELEASE / "decision-card-first.zip"
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
         for rel in SKILL_FILES:
-            z.writestr("build-or-reuse/" + rel, (RELEASE / rel).read_bytes())
+            z.writestr("decision-card-first/" + rel, (RELEASE / rel).read_bytes())
     digest = hashlib.sha256(out.read_bytes()).hexdigest()
     print("  %s" % out.name)
     print("  files=%d  sha256=%s" % (len(SKILL_FILES), digest))
@@ -114,7 +114,7 @@ def preflight():
     print("=== 5. 发布前检查 ===")
     if "<!--" in readme:
         print("  [ ] README 底部仍有发布前待更新清单（HTML 注释），逐条确认后删掉")
-    if "[`build-or-reuse.zip`]" in readme:
+    if "[`decision-card-first.zip`]" in readme:
         print("  [ ] README 里的 zip 链接仍是占位符，换成 Release 资产链接")
     print("  [ ] 确认 LICENSE 署名")
     print("  [ ] 今晚新增的实测数据已同步进 docs/results.csv 且列数一致")

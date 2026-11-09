@@ -1,4 +1,4 @@
-# build-or-reuse
+# decision-card-first
 
 > 让 Agent 在写第一行代码之前，先交一张纸。
 > Make your agent hand you a one-page decision before it writes a single line of code.
@@ -97,7 +97,7 @@ v2 那次还从源码里挖出几个会致命的坑：`md2img` 的 `fonts.go` �
 
 ## 安装
 
-对已支持 Skill 机制的 Agent，把仓库根目录或 [`build-or-reuse.zip`] 解压到本平台的**用户级** skills 目录（WorkBuddy 为 `~/.workbuddy/skills/build-or-reuse/`）。包内 `INSTALL.md` 写明了安装约定，包括把默认规则注册到用户级长期记忆／全局规则文件——**装了不等于默认生效**，这一步不能省。
+对已支持 Skill 机制的 Agent，把仓库根目录或 [`decision-card-first.zip`] 解压到本平台的**用户级** skills 目录（WorkBuddy 为 `~/.workbuddy/skills/decision-card-first/`）。包内 `INSTALL.md` 写明了安装约定，包括把默认规则注册到用户级长期记忆／全局规则文件——**装了不等于默认生效**，这一步不能省。
 
 装完开一个全新会话，发一句普通的从零构建需求即可。规则是软约束；要 100% 强制需配 UserPromptSubmit hook。
 
@@ -135,6 +135,6 @@ MIT，见 [LICENSE](LICENSE)。字体、依赖与候选项目各有独立许可�
 
 <!--
 发布前待确认：
-1. 首屏 [`build-or-reuse.zip`] 相对链接：若走 GitHub Release 附件，push 后换成资产链接；直接提交 zip 到仓库则可保留（注意 .gitignore 已忽略根级 zip，需移出忽略或改路径）。
+1. 首屏 [`decision-card-first.zip`] 相对链接：若走 GitHub Release 附件，push 后换成资产链接；直接提交 zip 到仓库则可保留（注意 .gitignore 已忽略根级 zip，需移出忽略或改路径）。
 2. LICENSE 署名（当前 Yirun Huang, MIT）与仓库名。
 -->

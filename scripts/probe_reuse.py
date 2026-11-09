@@ -22,7 +22,7 @@ import urllib.request
 from datetime import date, datetime
 
 API = "https://api.github.com"
-UA = "build-or-reuse-probe/1.0"
+UA = "decision-card-first-probe/1.0"
 TIMEOUT = 15
 
 # None / NOASSERTION means "all rights reserved" by default: read, do not copy.
