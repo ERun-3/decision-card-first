@@ -230,6 +230,7 @@ def main():
 
     result["caveats"] = [
         "GitHub API 结果按 stars 排序，不等于需求契合度；无关高星仓库需人工剔除。",
+        "按 stars 排序会埋没 0★ 新项目：功能匹配但排不进 Top N 的仓库，需另查目录站或按更新时间补搜。",
         "NO-LICENSE / NOASSERTION 在法律上默认保留所有权利，只能阅读思路，不可复制代码。",
         "星数与维护状态只说明活跃度，不说明可用性；须打开 README、issue 与最近提交核实功能边界。",
         "本脚本只覆盖 GitHub；npm / PyPI / 浏览器插件商店 / 商业 SaaS 需另行检索。",

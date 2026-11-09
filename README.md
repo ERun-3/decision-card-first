@@ -5,7 +5,7 @@
 
 **不承诺省首轮 token，承诺少返工一次。**
 
-一个「造轮子前先调研」的 Skill：从零构建任务开始时，先检索现成软件与开源实现，核对许可证和维护状态，输出一张「直接用 / 抄思路 / 自己写」的决策卡，**然后停下等确认**，不直接开干。
+一个「造轮子前先调研」的 Skill：从零构建任务开始时，先检索现成软件与开源实现，核对许可证和维护状态，输出一张「直接用 / 抄思路 / 给上游贡献 / 长期分叉 / 自己写」的决策卡，**然后停下等确认**，不直接开干。
 
 真实会话对照：
 
@@ -19,9 +19,9 @@
 这个 Skill 把「调研」变成一个有交付物、有边界的阶段：
 
 1. **分流** — 微小任务、改既有代码、明确说「不要调研」时跳过，不污染所有任务。
-2. **检索** — GitHub REST API + 网页搜索 + PyPI/npm 等生态；宽词和窄词都跑，逐条剔除噪声。
+2. **检索** — GitHub REST API + 网页搜索 + PyPI/npm 等生态；先窄后宽，逐条剔除噪声。
 3. **许可证红线** — `NO-LICENSE` / `NOASSERTION` 法律上默认保留所有权利，只能读思路不可抄代码；MIT/Apache/BSD、LGPL/MPL、GPL/AGPL 分级处理。
-4. **决策卡** — 候选表（覆盖度 / 许可证 / 活跃度）、三选一结论、理由、可借鉴的坑、差异化空间、红线与盲区。
+4. **决策卡** — 候选表（覆盖度 / 许可证 / 活跃度）、五选一结论、理由、可借鉴的坑、差异化空间、召回边界、红线与盲区。
 5. **硬闸门** — 决策卡是本轮唯一交付物。输出后不写代码、不建目录、不装依赖、不做「顺手预检」；只有用户明确说「继续」才进入实现。
 
 ## 前后对照（同一句需求，同一个模型）
@@ -50,13 +50,13 @@ v2 那次还从源码里挖出几个会致命的坑：`md2img` 的 `fonts.go` �
 
 ## 同类与差异
 
-发布前我们用这个 Skill 查了自己，找到两个同类——这也是它第一次真实的 dogfooding：
+发布前我们用这个 Skill 查了自己，发现多个同类；下面是最直接的两个——这也是它第一次真实的 dogfooding：
 
 | | [reuse-before-build](https://github.com/Ai-Eastern/reuse-before-build) | [search-before-building](https://github.com/yeaight7/agent-powerups) | 本项目 |
 | --- | --- | --- | --- |
 | 检索范围 | 优先查**你的代码库**、标准库、已装依赖 | 代码库 → 包注册表 → MCP | **外部现成软件与开源项目**（GitHub / PyPI / npm / 生态站） |
 | 适用场景 | 在既有代码库上扩展功能 | 写新 utility / 加依赖前 | **从零做一个新工具** |
-| 输出 | Take / Borrow / Build 决策 + 证据 | 四步检查 + 决策表 | 一页**决策卡**：候选表 / 许可证分级 / 三选一结论 / 可借鉴的坑 / 差异化空间 / 盲区 |
+| 输出 | Take / Borrow / Build 决策 + 证据 | 四步检查 + 决策表 | 一页**决策卡**：候选表 / 许可证分级 / 五选一结论 / 可借鉴的坑 / 差异化空间 / 召回边界 / 盲区 |
 | 输出之后 | 提及仅在用户要求时实现 | 无明确停止机制 | **硬闸门**：不写代码、不建目录、不装依赖、不做「顺手预检」，等用户确认 |
 | 默认触发 | 手动点名或任务匹配 | 手动 | **安装时自举**：把默认规则注册进用户级全局规则文件 |
 | 探测工具 | 无专用脚本 | 用 `rg` / `npm search` 等内置命令 | `probe_reuse.py` 零依赖：stars / SPDX / 活跃度 / 许可证分级一次输出 |
@@ -104,12 +104,12 @@ v2 那次还从源码里挖出几个会致命的坑：`md2img` 的 `fonts.go` �
 ## 复现
 
 ```bash
-python scripts/probe_reuse.py "video to live photo" "motion photo converter" --per-query 8
+python scripts/probe_reuse.py "motion photo converter" "video to live photo" --per-query 8
 python scripts/probe_reuse.py --json "motion photo converter"
 python scripts/probe_reuse.py --repo owner/name
 ```
 
-脚本零第三方依赖，只向 `api.github.com` 发只读 GET（支持 `GITHUB_TOKEN` 提升限速），输出 stars / SPDX 许可证 / 最后提交 / 归档状态 / 陈旧标记 / 许可证分级，支持表格与 JSON；JSON 模式下 description 自动截断至 300 字符并清理转义换行。
+脚本零第三方依赖，只向 `api.github.com` 发只读 GET（支持 `GITHUB_TOKEN` 提升限速），输出 stars / SPDX 许可证 / 最后提交 / 归档状态 / 陈旧标记 / 许可证分级，支持表格与 JSON；JSON 模式下 description 自动截断至 300 字符并清理转义换行。按 stars 排序会埋没 0★ 新项目，脚本会提示另查目录站或按更新时间补搜。
 
 - `docs/TEST-PLAN.md` — 完整的跨 Agent 实测方案：L0 冒烟、L1 延迟验收、L2 的 2×2 归因、E 阴性对照、事先写死的判定阈值
 - `docs/results.csv` — 逐 case 的实测记录（含包哈希，锁住输入版本）
