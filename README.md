@@ -48,23 +48,20 @@ v2 那次还从源码里挖出几个会致命的坑：`md2img` 的 `fonts.go` �
 
 **安装时自举在 3 个平台全部通过**：每个安装者都正确找到本平台的用户级目录与全局规则文件并逐字写入触发规则。两个平台独立调研同一需求，收敛到同一个最优候选（`jmaciasluque/md2img`），并各自从 `fonts.go` 源码独立复现了「Windows 无字体路径、中文必退化为位图字体」这一结论。
 
-## 同类与差异
+## 这个赛道有 5 个玩家，缺的是什么
 
-发布前我们用这个 Skill 查了自己，发现多个同类；下面是最直接的两个——这也是它第一次真实的 dogfooding：
+「先调研再动手」这个想法已经不新了——发布前我们用这个 Skill 查了自己，找到 5 个同类。检索还漏了 3 个（star 排序埋没 0★ 新项目 + 词族覆盖不全，复盘后已修进第 1/3 步），这条教训本身写进了技能里。把他们摆在一起看，缺口很清楚：
 
-| | [reuse-before-build](https://github.com/Ai-Eastern/reuse-before-build) | [search-before-building](https://github.com/yeaight7/agent-powerups) | 本项目 |
-| --- | --- | --- | --- |
-| 检索范围 | 优先查**你的代码库**、标准库、已装依赖 | 代码库 → 包注册表 → MCP | **外部现成软件与开源项目**（GitHub / PyPI / npm / 生态站） |
-| 适用场景 | 在既有代码库上扩展功能 | 写新 utility / 加依赖前 | **从零做一个新工具** |
-| 输出 | Take / Borrow / Build 决策 + 证据 | 四步检查 + 决策表 | 一页**决策卡**：候选表 / 许可证分级 / 五选一结论 / 可借鉴的坑 / 差异化空间 / 召回边界 / 盲区 |
-| 输出之后 | 提及仅在用户要求时实现 | 无明确停止机制 | **硬闸门**：不写代码、不建目录、不装依赖、不做「顺手预检」，等用户确认 |
-| 默认触发 | 手动点名或任务匹配 | 手动 | **安装时自举**：把默认规则注册进用户级全局规则文件 |
-| 探测工具 | 无专用脚本 | 用 `rg` / `npm search` 等内置命令 | `probe_reuse.py` 零依赖：stars / SPDX / 活跃度 / 许可证分级一次输出 |
-| 验证 | 17 runs 对照实验（诚实标注为小样本） | 目录站安全扫描 | 跨 Agent 实测：L0 / L1 / L2 的 2×2 归因 + 阴性对照 + 包哈希锁版本 |
+| | [github-build-or-reuse](https://github.com/ghspain/github-build-or-reuse) | [reuse-before-build](https://github.com/Ai-Eastern/reuse-before-build) | [search-before-building](https://github.com/yeaight7/agent-powerups) | 本项目 |
+| --- | --- | --- | --- | --- |
+| 决策输出 | USE / CONTRIBUTE / FORK / BUILD | Take / Borrow / Build | 四步检查 + 决策表 | 一页**决策卡**（候选表 / 硬门 / 五选一 / 召回边界 / 盲区） |
+| 输出后停下等确认 | ❌ 给「最小可逆下一步」，继续走 | ❌ 仅在用户要求时实现 | ❌ 无停止机制 | ✅ **硬闸门**：不写代码、不建目录、不装依赖、不提 PR，等用户确认 |
+| 安装时自举默认触发 | ❌ | ❌ | ❌ | ✅ 安装者把默认规则注册进本平台全局规则文件 |
+| 跨平台行为实测 | 证据 demo（可 replay） | 17 runs 对照（自评小样本） | 目录站安全扫描 | ✅ 3 平台 L0/L1 实测，逐 case 锁包哈希 |
+| 反提示注入 | ✅ 候选内容不可信 | — | — | ✅（v3.1 从同类借鉴） |
+| 检索范围 | GitHub / 开源 | 优先查你的代码库 | 代码库 → 包注册表 → MCP | 外部现成软件与开源项目 + 生态目录站 |
 
-两边互补不冲突：他们防「在已有项目里重写已有的东西」，我们防「从零造一个世界上已经造好的轮子」。
-
-顺带一个活案例：检索竞品时，GitHub API 三个宽泛 query 全部 0 命中，网页搜索一次命中 3 个——「没搜到 ≠ 不存在」这条反模式，我们又亲手验证了一遍。
+前面几行是各家都做到位的——「先调研再动手」已经被充分验证，不需要第五个人再讲一遍。**没有人做的是中间两行：让 Agent 出了报告真的停下来，以及装了就默认生效。**本项目只讲这两件事。
 
 ## 已知弱点
 
@@ -97,7 +94,7 @@ v2 那次还从源码里挖出几个会致命的坑：`md2img` 的 `fonts.go` �
 
 ## 安装
 
-对已支持 Skill 机制的 Agent，把仓库根目录或 [`decision-card-first.zip`] 解压到本平台的**用户级** skills 目录（WorkBuddy 为 `~/.workbuddy/skills/decision-card-first/`）。包内 `INSTALL.md` 写明了安装约定，包括把默认规则注册到用户级长期记忆／全局规则文件——**装了不等于默认生效**，这一步不能省。
+对已支持 Skill 机制的 Agent，把仓库根目录或 [`decision-card-first.zip`](https://github.com/ERun-3/decision-card-first/releases/download/v3.1.0/decision-card-first.zip) 解压到本平台的**用户级** skills 目录（WorkBuddy 为 `~/.workbuddy/skills/decision-card-first/`）。包内 `INSTALL.md` 写明了安装约定，包括把默认规则注册到用户级长期记忆／全局规则文件——**装了不等于默认生效**，这一步不能省。
 
 装完开一个全新会话，发一句普通的从零构建需求即可。规则是软约束；要 100% 强制需配 UserPromptSubmit hook。
 
@@ -133,8 +130,3 @@ prepare_release.py                一键同步 + 校验 + 打包
 
 MIT，见 [LICENSE](LICENSE)。字体、依赖与候选项目各有独立许可，决策卡会单独标注。
 
-<!--
-发布前待确认：
-1. 首屏 [`decision-card-first.zip`] 相对链接：若走 GitHub Release 附件，push 后换成资产链接；直接提交 zip 到仓库则可保留（注意 .gitignore 已忽略根级 zip，需移出忽略或改路径）。
-2. LICENSE 署名（当前 Yirun Huang, MIT）与仓库名。
--->
