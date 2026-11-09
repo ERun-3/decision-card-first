@@ -16,7 +16,7 @@
 
 ## 安装
 
-把 [`decision-card-first.zip`](https://github.com/ERun-3/decision-card-first/releases/download/v3.1.0/decision-card-first.zip) 解压到本平台的**用户级** skills 目录，包内 `INSTALL.md` 是给安装 Agent 的约定——**装了不等于默认生效**，注册那一步不能省。
+把 [`decision-card-first.zip`](https://github.com/ERun-3/decision-card-first/releases/download/v1.1.0/decision-card-first.zip) 解压到本平台的**用户级** skills 目录，包内 `INSTALL.md` 是给安装 Agent 的约定——**装了不等于默认生效**，注册那一步不能省。
 
 ## 探测脚本
 
