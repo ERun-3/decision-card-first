@@ -150,9 +150,9 @@ python scripts/probe_reuse.py --json --per-query 8 "motion photo converter" "vid
 无 npm / pip 包；分发物是 Release zip（含 `SKILL.md` / `INSTALL.md` / `scripts/` / `references/` / `hooks/`）：
 
 ```bash
-curl -L -o dcf.zip https://github.com/ERun-3/decision-card-first/releases/download/v1.1.0/decision-card-first.zip
+curl -L -o dcf.zip https://github.com/ERunnn/decision-card-first/releases/download/v1.1.0/decision-card-first.zip
 mkdir -p ~/.workbuddy/skills && unzip -o dcf.zip -d ~/.workbuddy/skills/
-python ~/.workbuddy/skills/decision-card-first/scripts/probe_reuse.py --repo ERun-3/decision-card-first
+python ~/.workbuddy/skills/decision-card-first/scripts/probe_reuse.py --repo ERunnn/decision-card-first
 ```
 
 路径按宿主平台替换；**必须**再按 `INSTALL.md` 第 4 步把默认触发规则写入用户级全局规则，装了不等于生效。

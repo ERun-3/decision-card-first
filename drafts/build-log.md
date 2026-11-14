@@ -1,6 +1,6 @@
 # 一晚上，做进一个已经有 5 个玩家的赛道
 
-> build log，2026-11-10。项目：[decision-card-first](https://github.com/ERun-3/decision-card-first)。
+> build log，2026-11-10。项目：[decision-card-first](https://github.com/ERunnn/decision-card-first)。
 
 ## 起点
 

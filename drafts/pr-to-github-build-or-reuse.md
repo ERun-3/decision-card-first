@@ -6,7 +6,7 @@
 
 ## 建议 diff（追加到 Inspiration and related work 列表）
 
-- **[decision-card-first](https://github.com/ERun-3/decision-card-first)** — an independent,
+- **[decision-card-first](https://github.com/ERunnn/decision-card-first)** — an independent,
   cross-platform tested skill that stops the agent right after the decision card and
   waits for explicit user confirmation before any implementation. It also bootstraps
   itself at install time by registering the default trigger into the host agent's
