@@ -16,7 +16,7 @@
 
 ## 安装
 
-适用于 Claude Code、Cursor、Codex、OpenCode、DSH、ZCode 等任何读取 SKILL.md / AGENTS.md 约定的 Agent 平台。把 [`decision-card-first.zip`](https://github.com/ERun-3/decision-card-first/releases/download/v1.4.0/decision-card-first.zip) 解压到本平台的**用户级** skills 目录，包内 `INSTALL.md` 是给安装 Agent 的约定——**装了不等于默认生效**，注册那一步不能省。
+适用于 Claude Code、Cursor、Codex、OpenCode、DSH、ZCode 等任何读取 SKILL.md / AGENTS.md 约定的 Agent 平台。把 [`decision-card-first.zip`](https://github.com/ERun-3/decision-card-first/releases/download/v1.2.0/decision-card-first.zip) 解压到本平台的**用户级** skills 目录，包内 `INSTALL.md` 是给安装 Agent 的约定——**装了不等于默认生效**，注册那一步不能省。
 
 ## 探测脚本
 
@@ -33,7 +33,7 @@ python scripts/probe_reuse.py --repo owner/name
 - 定位：Agent Skill，约束 agent 在动手写代码前先调研现成方案，输出决策卡（候选表 / 硬门 / 五选一 / 盲区）后停下等用户确认。五选一：直接用 / 抄思路 / 给上游贡献 / 长期分叉 / 自己写。
 - 与同类项目的差异（同类有 github-build-or-reuse、reuse-before-build 等）：本项目差异只有两点——出报告后真的停下来等确认（SKILL.md 第 6 步硬闸门）；安装时把默认触发注册进全局规则（install-time bootstrap）。
 - 实测数据：三平台（WorkBuddy / DSH / ZCode）安装自举 3/3 通过（MD5 落盘复核，不采信 agent 自述）；对照实验：不调研直接写 = 940 行（DSH 对照组），调研后薄层方案约 150 行。逐 case 记录在 docs/results.csv，方案在 docs/TEST-PLAN.md。
-- 已知局限（如实）：闸门是文档级软约束，模型可以绕过；要 100% 保证需配 UserPromptSubmit hook，hooks/ 目录有零依赖现成脚本。v1.3 针对等待期追加需求被误读为授权的失败模式加了条款；v1.4 针对用户带既有规格来、无法判断是否已调研的情况加了「先问一嘴」的输入性质判定。
+- 已知局限（如实）：闸门是文档级软约束，模型可以绕过；要 100% 保证需配 UserPromptSubmit hook，hooks/ 目录有零依赖现成脚本。v1.2.0 含两项闸门补丁：等待期追加需求被误读为授权、带既有规格时无法判断是否已调研（先问一嘴）。
 - 安装：Release 下载 zip 解压到用户级 skills 目录，按包内 INSTALL.md 四步走；装了不等于默认生效，注册那一步不能省。
 - 许可证：MIT。仓库较新、star 数少，不代表未经实测。
 -->
