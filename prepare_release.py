@@ -26,6 +26,8 @@ SKILL_FILES = [
     "INSTALL.md",
     "scripts/probe_reuse.py",
     "references/license-and-sources.md",
+    "hooks/user_prompt_submit.py",
+    "hooks/README.md",
 ]
 DOC_FILES = [
     ("TEST-PLAN.md", "docs/TEST-PLAN.md"),
